@@ -1,5 +1,6 @@
 package com.eloboostum.user.security
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -11,14 +12,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 class SecurityConfig(private val jwtFilter: JWTFilter) {
-
+@Value("\${api.prefix}")
+private lateinit var prefix: String;
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http{
             csrf { disable() }
             authorizeHttpRequests {
-                authorize("/v1/register",permitAll)
-                authorize("/v1/login", permitAll)
+                authorize("$prefix/auth/register",permitAll)
+                authorize("$prefix/auth/login", permitAll)
                 authorize(anyRequest, permitAll)
             }
             formLogin { disable() }
