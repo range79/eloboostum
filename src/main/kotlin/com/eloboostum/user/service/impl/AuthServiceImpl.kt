@@ -25,7 +25,7 @@ class AuthServiceImpl (
         {
             throw AuthenticationException("UserName or Password Incorrect")
         }
-        return    jwtUtil.generateToken(user.id,user.role)
+        return jwtUtil.generateToken(user.id,user.role)
 
 
     }

@@ -21,5 +21,6 @@ data class User(
     @Email
     val email : String,
     val password : String,
-    val role : Role,
+    var role : Role,
+    val isActive : Boolean = true,
 )

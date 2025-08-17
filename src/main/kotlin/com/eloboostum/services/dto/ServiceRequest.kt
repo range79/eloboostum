@@ -1,7 +1,11 @@
 package com.eloboostum.services.dto
 
+import jakarta.validation.constraints.NotNull
+
+
 data class ServiceRequest(
-    var name:String? = null,
+    @NotNull
+    var name:String,
     var description:String? = null,
     var coverImageURL:String? = null,
 )

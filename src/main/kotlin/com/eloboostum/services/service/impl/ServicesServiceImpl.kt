@@ -45,6 +45,9 @@ class ServicesServiceImpl (
     }
 
 
-    private fun findService(id: Long): Services = servicesRepository.findById(id).orElseThrow(
-        { ServiceNotFoundException("Service with ID $id not found") }
+    private fun findService(id: Long): Services = servicesRepository.findById(id).orElseThrow {
+        ServiceNotFoundException(
+            "Service with ID $id not found"
+        )
+    }
 }
