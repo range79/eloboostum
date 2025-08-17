@@ -1,5 +1,11 @@
 package com.eloboostum.user.domain.model
 
-enum class Role {
-    ROle_Admin,ROle_User
+import org.springframework.security.core.GrantedAuthority
+
+enum class Role : GrantedAuthority{
+    ROLE_ADMIN,ROLE_USER;
+
+    override fun getAuthority(): String? {
+       return name
+    }
 }
