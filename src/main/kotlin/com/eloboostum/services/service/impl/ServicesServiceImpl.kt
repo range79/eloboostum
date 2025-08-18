@@ -9,12 +9,14 @@ import com.eloboostum.services.service.ServicesService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ServicesServiceImpl (
     private val servicesRepository: ServiceRepository,
     private val serviceMapper: ServiceMapper
 ): ServicesService {
+    @Transactional(readOnly = true)
     override fun getAllServices(pageable: Pageable): Page<Services> {
         return servicesRepository.findAll(pageable)
     }
@@ -22,14 +24,14 @@ class ServicesServiceImpl (
     override fun getServiceById(id: Long): Services {
         return findService(id)
     }
-
+    @Transactional
     override fun createService(serviceRequest: ServiceRequest) {
         serviceMapper.serviceRequestToService(serviceRequest).let {
             servicesRepository.save(it)
         }
         return
     }
-
+    @Transactional
     override fun updateService(
         id: Long,
         serviceRequest: ServiceRequest
@@ -38,7 +40,7 @@ class ServicesServiceImpl (
         serviceMapper.updateService(service,serviceRequest)
         return servicesRepository.save(service)
     }
-
+    @Transactional
     override fun deleteServiceById(id: Long){
         val service=  findService(id)
         return servicesRepository.delete(service)

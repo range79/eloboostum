@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/services")
+@RequestMapping("\${api.prefix}/services")
 interface ServicesApi {
     @GetMapping("/all")
     fun getAllServices( @PageableDefault(size = 20, sort = ["id"]) pageable: Pageable): Page<Services>

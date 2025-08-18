@@ -18,5 +18,5 @@ data class User(
     val email : String,
     val password : String,
     var role : Role,
-    val deleted: Boolean = false,
+    var deleted: Boolean = false,
 )

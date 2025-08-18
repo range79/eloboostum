@@ -1,6 +1,7 @@
 package com.eloboostum.common.security
 
 import com.eloboostum.common.security.jwt.JWTFilter
+import com.eloboostum.user.domain.model.Role
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,6 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(private val jwtFilter: JWTFilter) {
 @Value("\${api.prefix}")
 private lateinit var prefix: String;
+    private val adminList: List<String> = listOf(
+        Role.ROLE_ADMIN.authority,
+        Role.ROLE_SUPER_ADMIN.authority
+    )
+
+
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http{
@@ -24,14 +31,15 @@ private lateinit var prefix: String;
 
 
 
-                //admin endpoints
-                authorize ("$prefix/admin/group/**",hasAuthority("ROLE_ADMIN"))
-                authorize ("$prefix/admin/user/**",hasAuthority("ROLE_ADMIN"))
-
-
+                //admin only endpoints
+                authorize ("$prefix/admin/group/**",hasAnyAuthority(*adminList.toTypedArray()))
+                authorize ("$prefix/admin/user/**",hasAnyAuthority(*adminList.toTypedArray()))
+                authorize ("$prefix/service/create",hasAnyAuthority(*adminList.toTypedArray()))
+                //all users can react this one
+                authorize ("$prefix/service/all",permitAll)
+                authorize ("$prefix/service/**",permitAll)
                 authorize(anyRequest, permitAll)
             }
-            formLogin { disable() }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(jwtFilter)
         }
         return http.build()
