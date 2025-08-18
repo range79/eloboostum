@@ -1,4 +1,4 @@
-package com.eloboostum.user.security
+package com.eloboostum.common.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

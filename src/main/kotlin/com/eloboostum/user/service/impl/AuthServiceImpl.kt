@@ -6,7 +6,8 @@ import com.eloboostum.user.domain.repository.UserRepository
 import com.eloboostum.user.dto.LoginRequest
 import com.eloboostum.user.dto.RegisterRequest
 import com.eloboostum.user.exception.AuthenticationException
-import com.eloboostum.user.security.JWTUtil
+import com.eloboostum.common.security.jwt.JWTUtil
+import com.eloboostum.user.exception.UserNotFoundException
 import com.eloboostum.user.service.AuthService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -21,6 +22,9 @@ class AuthServiceImpl (
 
         val user =userRepository.findByUsername(loginRequest.username).orElseThrow{
             AuthenticationException("Username or Password Incorrect")}
+        if (user.deleted) {
+            throw UserNotFoundException("User account has been deleted")
+        }
         if(!passwordEncoder.matches(loginRequest.password,user.password))
         {
             throw AuthenticationException("UserName or Password Incorrect")

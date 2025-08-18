@@ -1,6 +1,7 @@
-package com.eloboostum.user.security
+package com.eloboostum.common.security.jwt
 
-import com.eloboostum.user.security.details.CustomUserDetailsService
+import com.eloboostum.common.security.jwt.JWTUtil
+import com.eloboostum.common.security.details.CustomUserDetailsService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-
 
 @Component
 class JWTFilter(

@@ -8,9 +8,9 @@ import com.eloboostum.user.exception.UserNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class AdminServiceImpl(
+class AdminRoleServiceImpl(
     private val userRepository: UserRepository
-) :AdminService {
+) :AdminRoleService {
     override fun makeModerator(userId: Long): User {
         return changeRole(userId,Role.ROLE_MODERATOR, Role.ROLE_USER)
     }

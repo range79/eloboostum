@@ -1,4 +1,4 @@
-package com.eloboostum.user.security
+package com.eloboostum.common.security.jwt
 
 import com.eloboostum.user.domain.model.Role
 import io.jsonwebtoken.Claims

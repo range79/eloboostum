@@ -1,10 +1,9 @@
-package com.eloboostum.user.security.details
+package com.eloboostum.common.security.details
 
 import com.eloboostum.user.domain.repository.UserRepository
 import com.eloboostum.user.exception.UserIdNotFoundException
 
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
