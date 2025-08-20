@@ -44,9 +44,8 @@ class JWTFilter(
             }
 
 
-
-                val id = jwtUtil.getUserId(token)
             if (token != null && SecurityContextHolder.getContext().authentication == null) {
+                val id = jwtUtil.getUserId(token)
                 val userDetails: UserDetails = customUserDetailsService.loadUserByUserID(id)
                 if (jwtUtil.validateToken(token, userDetails)) {
                         val authToken =

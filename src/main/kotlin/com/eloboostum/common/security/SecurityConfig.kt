@@ -31,14 +31,19 @@ private lateinit var prefix: String;
 
 
 
-                //admin only endpoints
-                authorize ("$prefix/admin/group/**",hasAnyAuthority(*adminList.toTypedArray()))
+
                 authorize ("$prefix/admin/user/**",hasAnyAuthority(*adminList.toTypedArray()))
                 authorize ("$prefix/service/create",hasAnyAuthority(*adminList.toTypedArray()))
                 //all users can react this one
                 authorize ("$prefix/service/all",permitAll)
                 authorize ("$prefix/service/**",permitAll)
-                authorize(anyRequest, permitAll)
+                //swagger stuff
+                authorize ("/v3/**",permitAll)
+                authorize("/swagger-ui/**",permitAll)
+                authorize("/swagger-resources/**",permitAll)
+
+                authorize ("/swagger-ui.html",permitAll)
+                authorize(anyRequest, authenticated)
             }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(jwtFilter)
         }

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 class AdminUserServiceImpl (
     private val userRepository: UserRepository
 ): AdminUserService {
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     override fun deleteUser(userID: Long) {
         val user = findUser(userID)
         user.deleted=true

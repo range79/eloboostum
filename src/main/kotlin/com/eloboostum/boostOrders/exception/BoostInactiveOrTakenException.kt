@@ -1,4 +1,4 @@
-package com.eloboostum.boosters.exception
+package com.eloboostum.boostOrders.exception
 
 import com.eloboostum.user.exception.AbstractExceptionHandler
 import org.springframework.http.HttpStatus

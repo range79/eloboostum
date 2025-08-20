@@ -22,8 +22,7 @@ class AuthServiceImpl (
     @Transactional(readOnly = true)
     override fun login(loginRequest: LoginRequest): String {
 
-        val user =userRepository.findByUsername(loginRequest.username).orElseThrow{
-            AuthenticationException("Username or Password Incorrect")}
+        val user =userRepository.findByUsername(loginRequest.username)
         if (user.deleted) {
             throw UserNotFoundException("User account has been deleted")
         }
@@ -31,8 +30,8 @@ class AuthServiceImpl (
         {
             throw AuthenticationException("UserName or Password Incorrect")
         }
-        return jwtUtil.generateToken(user.id,user.role)
 
+        return jwtUtil.generateToken(user.id,user.role)
 
     }
     @Transactional
@@ -48,6 +47,7 @@ class AuthServiceImpl (
             password = passwordEncoder.encode(registerRequest.password),
             username = registerRequest.username,
             role = Role.ROLE_USER,
+            deleted = false,
         )
     }
 

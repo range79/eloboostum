@@ -16,38 +16,45 @@ class AuthController(private val authService: AuthService): AuthApi {
 
     @Value("\${https.enable}")
     private var httpEnable: Boolean = false
-
-    override fun login(loginRequest: LoginRequest): ResponseEntity<String> {
-
-
-        val token = authService.login(loginRequest)
-
-        val cookie = ResponseCookie.from("jwt", token)
-            .httpOnly(true)
-            .secure(httpEnable)
-            .path("/")
-            .maxAge(jwtDuration.toLong())
-            .sameSite("Strict")
-            .build()
-
-        return ResponseEntity.ok()
-            .header("Set-Cookie", cookie.toString())
-            .body("Login successful")
+    override fun login(loginRequest: LoginRequest): String {
+        return authService.login(loginRequest)
     }
 
-    override fun register(registerRequest: RegisterRequest): ResponseEntity<String> {
-        val token = authService.register(registerRequest)
-
-        val cookie = ResponseCookie.from("jwt", token)
-            .httpOnly(true)
-            .secure(httpEnable)
-            .path("/")
-            .maxAge(jwtDuration.toLong())
-            .sameSite("Strict")
-            .build()
-
-        return ResponseEntity.ok()
-            .header("Set-Cookie", cookie.toString())
-            .body("Login successful")
+    override fun register(registerRequest: RegisterRequest): String {
+      return authService.register(registerRequest)
     }
+
+//    override fun login(loginRequest: LoginRequest): ResponseEntity<Void> {
+//
+//
+//        val token = authService.login(loginRequest)
+//
+//        val cookie = ResponseCookie.from("jwt", token)
+//            .httpOnly(true)
+//            .secure(httpEnable)
+//            .path("/")
+//            .maxAge(jwtDuration.toLong())
+//            .sameSite("Strict")
+//            .build()
+//
+//        return ResponseEntity.ok()
+//            .header("Set-Cookie", cookie.toString())
+//            .build()
+//    }
+//
+//    override fun register(registerRequest: RegisterRequest): ResponseEntity<Void> {
+//        val token = authService.register(registerRequest)
+//
+//        val cookie = ResponseCookie.from("jwt", token)
+//            .httpOnly(true)
+//            .secure(httpEnable)
+//            .path("/")
+//            .maxAge(jwtDuration.toLong())
+//            .sameSite("Strict")
+//            .build()
+//
+//        return ResponseEntity.ok()
+//            .header("Set-Cookie", cookie.toString())
+//            .build()
+//    }
 }

@@ -54,7 +54,7 @@ class JWTUtil {
 
         val expiration = claim.expiration
 
-        val expired = expiration.before(Date())
+        val expired = expiration.before(Date(System.currentTimeMillis()))
 
         return username == userDetails.username && !expired
     }

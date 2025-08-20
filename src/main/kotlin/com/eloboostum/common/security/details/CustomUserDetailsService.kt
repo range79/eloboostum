@@ -16,7 +16,8 @@ class CustomUserDetailsService(
     @Throws(UsernameNotFoundException::class)
   fun loadUserByUserID(userId: Long): UserDetails {
 
-        val user =  userRepository.findById(userId).orElseThrow{ UserIdNotFoundException("User with ID $userId not found") }
+        val user =  userRepository.findById(userId).orElseThrow{
+            UserIdNotFoundException("User with ID $userId not found") }
         return CustomUserDetails(user)
     }
 

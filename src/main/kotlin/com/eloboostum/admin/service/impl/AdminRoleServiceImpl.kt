@@ -1,6 +1,6 @@
 package com.eloboostum.admin.service.impl
 
-import com.eloboostum.admin.exception.RoleMismatchException
+import com.eloboostum.common.exception.RoleMismatchException
 import com.eloboostum.admin.service.AdminRoleService
 import com.eloboostum.user.domain.model.Role
 import com.eloboostum.user.domain.model.User

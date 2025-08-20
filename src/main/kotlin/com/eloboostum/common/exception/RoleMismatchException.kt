@@ -1,4 +1,4 @@
-package com.eloboostum.admin.exception
+package com.eloboostum.common.exception
 
 import com.eloboostum.user.exception.AbstractExceptionHandler
 import org.springframework.http.HttpStatus
