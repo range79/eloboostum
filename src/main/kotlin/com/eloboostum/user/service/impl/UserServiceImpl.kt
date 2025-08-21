@@ -1,5 +1,6 @@
 package com.eloboostum.user.service.impl
 
+import com.eloboostum.user.domain.model.User
 import com.eloboostum.user.domain.repository.UserRepository
 import com.eloboostum.user.dto.UserResponse
 import com.eloboostum.user.exception.UserNotFoundException
@@ -19,4 +20,4 @@ class UserServiceImpl(
                 role = user.role
             )
         }
-    }
+}

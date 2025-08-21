@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query
 import java.util.*
 
 interface  UserRepository : JpaRepository<User, Long>{
-    @Query("select u from User u where u.username = :username")
+
     fun findByUsername(username: String): User
 
     @Query(

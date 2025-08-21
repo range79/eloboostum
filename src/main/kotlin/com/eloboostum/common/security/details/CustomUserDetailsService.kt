@@ -20,6 +20,4 @@ class CustomUserDetailsService(
             UserIdNotFoundException("User with ID $userId not found") }
         return CustomUserDetails(user)
     }
-
-
 }
