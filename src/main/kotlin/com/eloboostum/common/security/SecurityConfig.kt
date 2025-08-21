@@ -46,6 +46,8 @@ private lateinit var prefix: String;
                 authorize(anyRequest, authenticated)
             }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(jwtFilter)
+
+
         }
         return http.build()
     }

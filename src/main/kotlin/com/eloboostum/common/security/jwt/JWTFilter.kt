@@ -38,10 +38,10 @@ class JWTFilter(
             }
 
 
-            if (token == null) {
-                val cookies = request.cookies
-                token = cookies?.firstOrNull { it.name == "jwt" }?.value
-            }
+//            if (token == null) {
+//                val cookies = request.cookies
+//                token = cookies?.firstOrNull { it.name == "jwt" }?.value
+//            }
 
 
             if (token != null && SecurityContextHolder.getContext().authentication == null) {

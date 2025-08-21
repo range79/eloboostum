@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 interface ErrorApi {
     @GetMapping("/all")
     fun getAllErrors(@PageableDefault(size = 20, sort = ["id"]) pageable: Pageable): Page<Errors>
-    @GetMapping("/errors/{id}")
+    @GetMapping("/errors/get/{id}")
     fun getError(@PathVariable id: Long): Errors?
     @GetMapping("/errors/{type}")
     fun getErrorsByStatus(@PathVariable type: ErrorTypes, @PageableDefault(size = 20, sort = ["id"]) pageable: Pageable): Page<Errors>

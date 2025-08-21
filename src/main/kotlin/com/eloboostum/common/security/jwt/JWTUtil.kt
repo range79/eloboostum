@@ -1,5 +1,6 @@
 package com.eloboostum.common.security.jwt
 
+import com.eloboostum.common.security.details.CustomUserDetails
 import com.eloboostum.user.domain.model.Role
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
@@ -49,15 +50,13 @@ class JWTUtil {
 
     fun validateToken(token: String?, userDetails: UserDetails): Boolean {
         val claim = parseToken(token)
-
-        val username = claim.subject
-
+        val id = claim.subject.toLong()
         val expiration = claim.expiration
-
         val expired = expiration.before(Date(System.currentTimeMillis()))
 
-        return username == userDetails.username && !expired
+        return id == (userDetails as CustomUserDetails).getId() && !expired
     }
+
 
 
 }
