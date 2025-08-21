@@ -10,5 +10,5 @@ interface ErrorService {
     fun getAllErrors(pageable: Pageable): Page<Errors>
     fun getError(id: Long): Errors?
     fun getErrorsByStatus(type: ErrorTypes, pageable: Pageable): Page<Errors>
-    fun saveError(error: Errors)
+    fun saveError(error: Errors): Errors
 }

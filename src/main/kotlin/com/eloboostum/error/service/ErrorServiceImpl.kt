@@ -27,7 +27,7 @@ class ErrorServiceImpl(
         return errorRepository.findByType(type,pageable)
     }
 
-    override fun saveError(error: Errors) {
-        errorRepository.save(error)
+    override fun saveError(error: Errors): Errors {
+       return errorRepository.save(error)
     }
 }
