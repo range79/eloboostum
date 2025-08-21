@@ -1,7 +1,9 @@
 package com.eloboostum.common.security.details
 
-import com.eloboostum.user.domain.repository.UserRepository
-import com.eloboostum.user.exception.UserIdNotFoundException
+import com.eloboostum.usermanagement.user.domain.repository.UserRepository
+import com.eloboostum.usermanagement.user.exception.UserNotFoundException
+
+
 
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -17,7 +19,8 @@ class CustomUserDetailsService(
   fun loadUserByUserID(userId: Long): UserDetails {
 
         val user =  userRepository.findById(userId).orElseThrow{
-            UserIdNotFoundException("User with ID $userId not found") }
+            UserNotFoundException("User with ID $userId not found")
+        }
         return CustomUserDetails(user)
     }
 }

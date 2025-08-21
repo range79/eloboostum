@@ -1,7 +1,8 @@
 package com.eloboostum.common.security.jwt
 
 import com.eloboostum.common.security.details.CustomUserDetails
-import com.eloboostum.user.domain.model.Role
+import com.eloboostum.usermanagement.user.domain.model.Role
+
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys

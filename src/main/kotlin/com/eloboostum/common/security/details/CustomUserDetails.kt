@@ -1,7 +1,8 @@
 package com.eloboostum.common.security.details
 
 
-import com.eloboostum.user.domain.model.User
+
+import com.eloboostum.usermanagement.user.domain.model.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

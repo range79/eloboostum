@@ -1,7 +1,8 @@
 package com.eloboostum.common.security
 
 import com.eloboostum.common.security.jwt.JWTFilter
-import com.eloboostum.user.domain.model.Role
+import com.eloboostum.usermanagement.user.domain.model.Role
+
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

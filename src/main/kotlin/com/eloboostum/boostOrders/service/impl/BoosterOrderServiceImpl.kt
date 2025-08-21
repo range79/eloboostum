@@ -11,8 +11,9 @@ import com.eloboostum.common.exception.RoleMismatchException
 
 
 import com.eloboostum.common.service.SecurityUtils
-import com.eloboostum.user.domain.model.Role
-import com.eloboostum.user.service.UserService
+import com.eloboostum.usermanagement.user.domain.model.Role
+import com.eloboostum.usermanagement.user.service.UserService
+
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
