@@ -1,9 +1,12 @@
 package com.eloboostum.usermanagement.user.service.impl
 
+import com.eloboostum.usermanagement.user.domain.model.User
 import com.eloboostum.usermanagement.user.domain.repository.UserRepository
 import com.eloboostum.usermanagement.user.dto.UserResponse
 import com.eloboostum.usermanagement.user.exception.UserNotFoundException
 import com.eloboostum.usermanagement.user.service.UserService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,4 +23,17 @@ class UserServiceImpl(
             role = user.role
         )
     }
+    override fun getAllUsers(pageable: Pageable): Page<UserResponse> {
+        return userRepository.findAll(pageable)
+            .map {user-> userToUserResponse(user)}
+    }
+
+    fun userToUserResponse(user: User): UserResponse{
+        return UserResponse(
+            user.id,
+            user.username,
+            user.role
+        )
+    }
+
 }

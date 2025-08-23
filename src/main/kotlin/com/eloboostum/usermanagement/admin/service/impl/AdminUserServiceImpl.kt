@@ -22,30 +22,9 @@ class AdminUserServiceImpl (
         user.deleted=true
         userRepository.save(user)
     }
-    @Transactional(readOnly = true)
-    override fun getDeletedUsers(pageable: Pageable): Page<UserResponse> {
-        return userRepository.getDeletedUsers(pageable)
-            .map {user -> userToUserResponse(user) }
-
-    }
-    @Transactional
-    override fun restoreUser(userID: Long) {
-        val user =userRepository.findDeletedUserById(userID).orElseThrow{
-            UserNotFoundException("User not Found ")
-        }
-        user.deleted=false
-        userRepository.save(user)
-    }
     private fun findUser(userId: Long): User {
         return userRepository.findById(userId).orElseThrow{
             UserNotFoundException("User not Found ")
         }
-    }
-    private fun userToUserResponse(u: User): UserResponse{
-        return UserResponse(
-            u.id,
-            u.username,
-            u.role
-        )
     }
 }

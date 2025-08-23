@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 class SecurityConfig(private val jwtFilter: JWTFilter) {
-@Value("\${api.prefix}")
-private lateinit var prefix: String;
+    @Value("\${api.prefix}")
+    private lateinit var prefix: String;
     private val adminList: List<String> = listOf(
         Role.ROLE_ADMIN.authority,
         Role.ROLE_SUPER_ADMIN.authority
@@ -27,23 +27,24 @@ private lateinit var prefix: String;
         http{
             csrf { disable() }
             authorizeHttpRequests {
-                authorize("$prefix/auth/register",permitAll)
-                authorize("$prefix/auth/login", permitAll)
+                //login and register
+                authorize("$prefix/auth/**",permitAll)
 
-
-
-
-                authorize ("$prefix/admin/user/**",hasAnyAuthority(*adminList.toTypedArray()))
-                authorize ("$prefix/service/create",hasAnyAuthority(*adminList.toTypedArray()))
                 //all users can react this one
-                authorize ("$prefix/service/all",permitAll)
                 authorize ("$prefix/service/**",permitAll)
                 //swagger stuff
                 authorize ("/v3/**",permitAll)
                 authorize("/swagger-ui/**",permitAll)
                 authorize("/swagger-resources/**",permitAll)
-
                 authorize ("/swagger-ui.html",permitAll)
+
+                authorize("$prefix/errors/**",hasAnyAuthority(*adminList.toTypedArray()))
+                authorize ("$prefix/admin/user/**",hasAnyAuthority(*adminList.toTypedArray()))
+                authorize ("$prefix/service/create",hasAnyAuthority(*adminList.toTypedArray()))
+                authorize ("$prefix/service/",hasAnyAuthority(*adminList.toTypedArray()))
+
+                //booster Controllers
+                authorize ("$prefix/boost-orders", hasAuthority(Role.ROLE_BOOSTER.authority))
                 authorize(anyRequest, authenticated)
             }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(jwtFilter)

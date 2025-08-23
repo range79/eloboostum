@@ -29,6 +29,7 @@ class AdminRoleServiceImpl(
     override fun removeBooster(userId: Long) {
         changeRole(userId, Role.ROLE_USER, Role.ROLE_BOOSTER)
     }
+
     private fun changeRole(userId: Long, role: Role, currentRole: Role) {
         if(currentRole == role) throw RoleMismatchException("Role is not true")
         val user = findUser(userId)
