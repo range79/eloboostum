@@ -1,0 +1,58 @@
+package com.eloboostum.usermanagement.user.controller
+
+
+import com.eloboostum.usermanagement.user.api.AuthApi
+import com.eloboostum.usermanagement.user.dto.LoginRequest
+import com.eloboostum.usermanagement.user.dto.RegisterRequest
+import com.eloboostum.usermanagement.user.service.AuthService
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class AuthController(private val authService: AuthService): AuthApi {
+    @Value("\${jwt.duration}")
+    private var jwtDuration: Int = 0
+    @Value("\${https.enable}")
+    private var httpEnable: Boolean = false
+    override fun login(loginRequest: LoginRequest): String {
+        return authService.login(loginRequest)
+    }
+
+    override fun register(registerRequest: RegisterRequest): String {
+        return authService.register(registerRequest)
+    }
+
+//    override fun login(loginRequest: LoginRequest): ResponseEntity<Void> {
+//
+//
+//        val token = authService.login(loginRequest)
+//
+//        val cookie = ResponseCookie.from("jwt", token)
+//            .httpOnly(true)
+//            .secure(httpEnable)
+//            .path("/")
+//            .maxAge(jwtDuration.toLong())
+//            .sameSite("Strict")
+//            .build()
+//
+//        return ResponseEntity.ok()
+//            .header("Set-Cookie", cookie.toString())
+//            .build()
+//    }
+//
+//    override fun register(registerRequest: RegisterRequest): ResponseEntity<Void> {
+//        val token = authService.register(registerRequest)
+//
+//        val cookie = ResponseCookie.from("jwt", token)
+//            .httpOnly(true)
+//            .secure(httpEnable)
+//            .path("/")
+//            .maxAge(jwtDuration.toLong())
+//            .sameSite("Strict")
+//            .build()
+//
+//        return ResponseEntity.ok()
+//            .header("Set-Cookie", cookie.toString())
+//            .build()
+//    }
+}
