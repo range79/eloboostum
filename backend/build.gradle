@@ -5,6 +5,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.25'
 }
+ext {
+    springCloudVersion = "2025.0.0"
+}
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
@@ -27,6 +30,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     testImplementation 'org.testcontainers:postgresql'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     //JJWT Libraries
@@ -59,6 +65,11 @@ allOpen {
     annotation 'jakarta.persistence.Entity'
     annotation 'jakarta.persistence.MappedSuperclass'
     annotation 'jakarta.persistence.Embeddable'
+}
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+    }
 }
 
 tasks.named('test') {

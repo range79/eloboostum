@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.util.Date
+import java.util.UUID
 import javax.crypto.SecretKey
 
 @Component
@@ -23,6 +24,7 @@ class JWTUtil {
         return Jwts
             .builder().subject(id.toString())
             .claim("role", role?.authority ?: Role.ROLE_USER).signWith(getSecretKey())
+            .id(UUID.randomUUID().toString())
             .expiration(Date(System.currentTimeMillis() + duration.toLong() * 1000L))
             .compact()
     }
@@ -53,9 +55,18 @@ class JWTUtil {
         val claim = parseToken(token)
         val id = claim.subject.toLong()
         val expiration = claim.expiration
-        val expired = expiration.before(Date(System.currentTimeMillis()))
 
-        return id == (userDetails as CustomUserDetails).getId() && !expired
+        return id == (userDetails as CustomUserDetails).getId() && !expiration.before(Date(System.currentTimeMillis()))
+    }
+    fun validateToken(token: String): Boolean {
+        val claim = parseToken(token)
+        val expiration = claim.expiration
+
+        return  !expiration.before(Date(System.currentTimeMillis()))
+    }
+    fun getJti(jwtToken: String): String {
+        val claims = parseToken(jwtToken)
+        return claims.id.toString()
     }
 
 

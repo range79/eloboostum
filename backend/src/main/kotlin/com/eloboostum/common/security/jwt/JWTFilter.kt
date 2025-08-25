@@ -1,7 +1,9 @@
 package com.eloboostum.common.security.jwt
 
+import com.eloboostum.common.exception.TokenException
 import com.eloboostum.common.security.jwt.JWTUtil
 import com.eloboostum.common.security.details.CustomUserDetailsService
+import com.eloboostum.common.service.JWTBlacklistService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -18,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 class JWTFilter(
 
     private val jwtUtil: JWTUtil,
+    private val jwtBlacklistService: JWTBlacklistService,
     private val customUserDetailsService: CustomUserDetailsService
 ) : OncePerRequestFilter() {
     private val log: Logger = LoggerFactory.getLogger(JWTFilter::class.java)
@@ -46,6 +49,9 @@ class JWTFilter(
 
             if (token != null && SecurityContextHolder.getContext().authentication == null) {
                 val id = jwtUtil.getUserId(token)
+                if (!jwtBlacklistService.checkToken(token)){
+                    throw TokenException("Token is invalid")
+                }
                 val userDetails: UserDetails = customUserDetailsService.loadUserByUserID(id)
                 if (jwtUtil.validateToken(token, userDetails)) {
                         val authToken =
@@ -64,6 +70,9 @@ class JWTFilter(
 
         } catch (e: Exception) {
             log.error(e.message)
+            SecurityContextHolder.clearContext()
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired JWT token.")
+            return
         }
         filterChain.doFilter(request, response)
     }

@@ -19,6 +19,7 @@ class AuthServiceImpl (
     private val passwordEncoder: PasswordEncoder,
     private val jwtUtil: JWTUtil
 ): AuthService {
+
     @Transactional(readOnly = true)
     override fun login(loginRequest: LoginRequest): String {
 
@@ -38,6 +39,11 @@ class AuthServiceImpl (
     override fun register(registerRequest: RegisterRequest): String {
         val  user =userRepository.save(registerMapper(registerRequest))
         return jwtUtil.generateToken(user.id,user.role)
+    }
+
+    override fun forgotPassword(email: String): String {
+
+        TODO()
     }
 
     fun registerMapper(registerRequest: RegisterRequest): User {
