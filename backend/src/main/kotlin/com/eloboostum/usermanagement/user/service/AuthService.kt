@@ -7,5 +7,6 @@ interface AuthService
 {
     fun login(loginRequest: LoginRequest): String
     fun register(registerRequest: RegisterRequest): String
-    fun forgotPassword(email: String): String
+    fun forgotPassword(token: String,password: String)
+    fun forgotPasswordMailSender(email:String)
 }

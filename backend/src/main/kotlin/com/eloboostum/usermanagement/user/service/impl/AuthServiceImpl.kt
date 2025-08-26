@@ -9,6 +9,7 @@ import com.eloboostum.usermanagement.user.dto.RegisterRequest
 import com.eloboostum.usermanagement.user.exception.AuthenticationException
 import com.eloboostum.usermanagement.user.exception.UserNotFoundException
 import com.eloboostum.usermanagement.user.service.AuthService
+import com.eloboostum.usermanagement.user.service.helper.AuthServiceHelper
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 class AuthServiceImpl (
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val jwtUtil: JWTUtil
+    private val jwtUtil: JWTUtil,
+    private val authServiceHelper: AuthServiceHelper
 ): AuthService {
 
     @Transactional(readOnly = true)
@@ -41,10 +43,21 @@ class AuthServiceImpl (
         return jwtUtil.generateToken(user.id,user.role)
     }
 
-    override fun forgotPassword(email: String): String {
-
-        TODO()
+    override fun forgotPassword(token: String, password: String) {
+        val mail = authServiceHelper.getEmailAndConsumeToken(token)
+            ?: throw AuthenticationException("Token is Invalid")
+        val user =  userRepository.findByEmail(mail).orElseThrow { UserNotFoundException("User not found") }
+        user.password=passwordEncoder.encode(password)
+        userRepository.save(user)
     }
+
+    override fun forgotPasswordMailSender(email: String) {
+        if (!userRepository.existsByEmail(email)) {
+            throw UserNotFoundException("User with email $email does not exist")
+        }
+        return authServiceHelper.sendMail(email)
+    }
+
 
     fun registerMapper(registerRequest: RegisterRequest): User {
         return User(

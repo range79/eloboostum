@@ -16,7 +16,7 @@ data class User(
     @Column(unique = true, nullable = false)
     @Email
     val email : String,
-    val password : String,
+    var password : String,
     @Enumerated(EnumType.STRING)
     var role : Role,
     var deleted: Boolean = false,

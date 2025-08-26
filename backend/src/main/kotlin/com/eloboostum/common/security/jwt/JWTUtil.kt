@@ -68,6 +68,13 @@ class JWTUtil {
         val claims = parseToken(jwtToken)
         return claims.id.toString()
     }
+    fun calculateRemainingTime(jwtToken: String): Long {
+        val claims = parseToken(jwtToken)
+        val expiration = claims.expiration
+        val now =System.currentTimeMillis()
+        val time = expiration.time-now
+        return time
+    }
 
 
 

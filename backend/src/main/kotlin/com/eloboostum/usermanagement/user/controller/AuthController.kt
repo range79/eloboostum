@@ -5,15 +5,14 @@ import com.eloboostum.usermanagement.user.api.AuthApi
 import com.eloboostum.usermanagement.user.dto.LoginRequest
 import com.eloboostum.usermanagement.user.dto.RegisterRequest
 import com.eloboostum.usermanagement.user.service.AuthService
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class AuthController(private val authService: AuthService): AuthApi {
-    @Value("\${jwt.duration}")
-    private var jwtDuration: Int = 0
-    @Value("\${https.enable}")
-    private var httpEnable: Boolean = false
+    //    @Value("\${jwt.duration}")
+//    private var jwtDuration: Int = 0
+//    @Value("\${https.enable}")
+//    private var httpEnable: Boolean = false
     override fun login(loginRequest: LoginRequest): String {
         return authService.login(loginRequest)
     }
@@ -21,6 +20,15 @@ class AuthController(private val authService: AuthService): AuthApi {
     override fun register(registerRequest: RegisterRequest): String {
         return authService.register(registerRequest)
     }
+
+    override fun forgotPasswordRequest(email: String) {
+        return authService.forgotPasswordMailSender(email)
+    }
+
+    override fun resetPassword(token: String, password: String) {
+        return authService.forgotPassword(token,password)
+    }
+
 
 //    override fun login(loginRequest: LoginRequest): ResponseEntity<Void> {
 //

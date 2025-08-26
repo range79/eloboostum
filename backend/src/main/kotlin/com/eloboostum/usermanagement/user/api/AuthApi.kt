@@ -4,9 +4,12 @@ import com.eloboostum.usermanagement.user.dto.LoginRequest
 import com.eloboostum.usermanagement.user.dto.RegisterRequest
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter
 import jakarta.validation.Valid
+import jakarta.validation.constraints.Email
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+
 @RateLimiter(name = "auth")
 @RequestMapping("\${api.prefix}/auth")
 interface  AuthApi
@@ -21,4 +24,12 @@ interface  AuthApi
     @PostMapping("/register")
     @RateLimiter(name = "register")
     fun register(@RequestBody @Valid registerRequest: RegisterRequest): String
+    @RateLimiter(name = "forgotPasswordRequest")
+    @PostMapping("/forgot-Password")
+    fun forgotPasswordRequest(@Email @RequestBody email: String)
+    @RateLimiter(name = "resetPassword")
+    @PostMapping("/reset-Password")
+    fun resetPassword(@RequestParam(name = "token") token: String, @RequestBody password: String)
+
+
 }

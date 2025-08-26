@@ -22,11 +22,12 @@ class JWTBlacklistService(
             if (checkToken(jwtToken)){
                 throw TokenException("Token Already blacklisted!")
             }
+            val time = jwtUtil.calculateRemainingTime(jwtToken)
 
-            redisTemplate.opsForValue().set(jti, "blacklisted")
+            redisTemplate.opsForValue().set(jti, "blacklisted", time)
 
         } catch (e: Exception) {
-           throw TokenException(e.message ?: "Redis Error Occurred")
+            throw TokenException(e.message ?: "Redis Error Occurred")
         }
 
 
@@ -37,7 +38,7 @@ class JWTBlacklistService(
             val jti = jwtUtil.getJti(jwtToken)
             return redisTemplate.hasKey(jti) ?: false
         } catch (e: Exception) {
-            return true
+            throw TokenException(e.message ?: "Redis Error Occurred")
         }
     }
 }

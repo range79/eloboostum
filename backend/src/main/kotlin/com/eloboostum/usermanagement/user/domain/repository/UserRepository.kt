@@ -23,5 +23,7 @@ interface  UserRepository : JpaRepository<User, Long>{
         nativeQuery = true
     )
     fun findDeletedUserById(userId: Long): Optional<User>
+    fun existsByEmail(email: String): Boolean
+    fun findByEmail(email: String): Optional<User>
 
 }
