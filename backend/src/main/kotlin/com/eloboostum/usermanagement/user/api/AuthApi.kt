@@ -18,7 +18,7 @@ interface  AuthApi
 //    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<Void>
 //    @PostMapping("/register")
 //    fun register(@RequestBody registerRequest: RegisterRequest): ResponseEntity<Void>
-    @RateLimiter(name = "login")
+
     @PostMapping("/login")
     fun login(@RequestBody @Valid loginRequest: LoginRequest):String
     @PostMapping("/register")
