@@ -1,7 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.9.25'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
-    id 'org.springframework.boot' version '3.5.4'
+    id 'org.springframework.boot' version '3.5.7'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.25'
 }
@@ -36,10 +36,10 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     //JJWT Libraries
-    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
@@ -49,9 +49,11 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation "io.mockk:mockk:1.14.5"
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.20.0'
 
-    //swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
 
 }
 
