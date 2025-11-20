@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service
 class CustomUserDetailsService(
     private val userRepository: UserRepository
 )  {
-
-
     @Throws(UsernameNotFoundException::class)
   fun loadUserByUserID(userId: Long): UserDetails {
 

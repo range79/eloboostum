@@ -22,6 +22,4 @@ class BoostOrderController(
     override fun cancelBoost(boostId: Long) {
         return boostOrderService.cancelBoost(boostId)
     }
-
-
 }
