@@ -4,6 +4,10 @@
 * rare limiting added
 * for docs open clone install run ant open https://localhost:8080/swagger-ui/index.html
 ## installation
+
+### ``Alert!`` You need java installed in your machine 
+
+
 ### 1.clone the app
 ```shell
 git clone https://github.com/range79/eloboostum
